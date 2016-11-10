@@ -33,7 +33,7 @@ public class FacebookCrawler {
       "message,link,permalink_url,created_time,type,name,id,comments.limit(0).summary(true),"
           + "shares,reactions.limit(0).summary(true),from";
   private static final SparkSession session = SparkUtils.getSparkSession();
-  private static final String CSV_FORMAT = "com.databricks.spark.csv";
+  // private static final String CSV_FORMAT = "com.databricks.spark.csv";
   final static Gson gSon = new Gson();
 
   /**
@@ -73,6 +73,9 @@ public class FacebookCrawler {
       // check if it still has next page.
       List<Post> postsNextPage = listPostNextPage.getData();
       if (postsNextPage.size() > 0) {
+
+        /// wrong here
+        // TODO
         this.convertedStatus
             .union(session.createDataFrame(saveToFile(postsNextPage), StatusData.class));
       }
